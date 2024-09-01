@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: #525659;
+        }
+        div{
+            width: 500px; height: 200px; 
+        }
+        @media print {
+            @page {
+                  size: 3mm 2mm; /* Custom size in millimeters (A4 size) */
+            }
+div {
+        width: 100%;
+        height: calc(100vh - 20px);
+        margin: 0 auto;
+    }
+            }
+    </style>
+</head>
+<body>
+    <div style="background-color: black;"></div>
+    <div style="background-color: black;"></div>
+    <div style="background-color: black;"></div>
+</body>
+</html>

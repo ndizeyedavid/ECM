@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+
+<body>
+    <canvas id="canvas"></canvas>
+
+    <script>
+        var QRCode = require('qrcode')
+        var canvas = document.getElementById('canvas')
+        const txt = "This card is issued to David Ndizeye an A'Level student from Essa nyarugunga in L4 SOD. If lost, please return to the school administration or contact the number behind";
+
+        QRCode.toDataURL(txt, function (error, url) {
+            if (error) console.error(error)
+            console.log(url);
+
+            // console.log('success!');
+        })
+    </script>
+</body>
+
+</html>

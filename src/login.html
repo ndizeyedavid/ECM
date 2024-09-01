@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECG</title>
+    <link rel="stylesheet" href="./output.css">
+</head>
+
+<body>
+    <div class="font-[sans-serif]">
+        <div class="grid items-center h-full gap-4 lg:grid-cols-3 md:grid-cols-2">
+            <div class="max-md:order-1 lg:col-span-2 md:h-screen w-full bg-[#000842] bg-cover bg-center md:rounded-tr-xl md:rounded-br-xl lg:p-12 p-8"
+                style="background-image: url('./error/default.webp');" id="spooky">
+                <!-- <img src="./error/default.webp" id="spooky" class="lg:w-[70%] w-full h-full block mx-auto object-cover" alt="Error Image" /> -->
+            </div>
+
+            <div class="w-full p-6">
+                <form method="post" id="formHandler">
+                    <div class="mb-8">
+                        <h3 class="text-3xl font-extrabold text-gray-800">ECM</h3>
+                        <p class="mt-4 text-sm text-gray-800">Beware if you aren't authorosed, you will get spooked
+                        </p>
+                    </div>
+
+                    <div class="mt-4">
+                        <label class="text-gray-800 text-[15px] mb-2 block">Password</label>
+                        <div class="relative flex items-center">
+                            <input name="password" type="password" required
+                                class="w-full text-sm text-gray-800 bg-gray-100 focus:bg-transparent px-4 py-3.5 rounded-md outline-blue-600"
+                                placeholder="Enter password" />
+                        </div>
+                        <p class="hidden mt-3 font-light text-red-500" id="err">Incorrect password</p>
+                    </div>
+
+                    <div class="mt-8">
+                        <button type="submit"
+                            class="w-full px-6 py-3 text-sm tracking-wide text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none">
+                            Sign in
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        const fs = require("fs");
+        const path = require('path');
+        const bcrypt = require('bcrypt');
+        const spooky = document.getElementById('spooky');
+        const errElement = document.getElementById('err');
+
+        let failCount = 0;
+        document.getElementById('formHandler').addEventListener('submit', (e => {
+            e.preventDefault();
+
+            const formData = new FormData(e.target);
+            const formObject = Object.fromEntries(formData.entries());
+            const filePath = __dirname + "/tst.json"
+
+            e.target.reset();
+            fs.readFile(filePath, "utf-8", async (err, data) => {
+                if (err) return console.log('Error');
+                const parsedData = JSON.parse(data);
+                const realPassword = parsedData[0].pswd;
+
+                if (await bcrypt.compare(formObject.password, realPassword)) {
+                    console.log('yey');
+                    window.location.assign('./index.html');
+                    errElement.style.display = 'none';
+                } else {
+                    failCount++;
+                    errElement.style.display = 'block';
+                }
+            })
+
+
+            if (failCount == 1) {
+                spooky.style.backgroundImage = 'url(./error/1.png)';
+            } else if (failCount == 2) {
+                spooky.style.backgroundImage = 'url(./error/2.jpg)';
+            } else if (failCount == 3) {
+                spooky.style.backgroundImage = 'url(./error/3.jpg)';
+            } else if (failCount == 4) {
+                spooky.style.backgroundImage = 'url(./error/4.webp)';
+            } else if (failCount == 5) {
+                spooky.style.backgroundImage = 'url(./error/5.jpg)';
+            } else if (failCount == 6) {
+                spooky.style.backgroundImage = 'url(./error/6.jpg)';
+            } else if (failCount == 7) {
+                errElement.innerHTML = "you are a sick psycho, if you reach this far 😂<br> Enjoy being looked at"
+                spooky.style.backgroundImage = 'url(./error/7.gif)';
+            }
+
+        }));
+    </script>
+</body>
+
+</html>

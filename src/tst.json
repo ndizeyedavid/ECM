@@ -1,0 +1,44 @@
+[
+  {
+    "role": "credentials",
+    "year": "2024 / 2025",
+    "pswd": "$2b$10$yVbVPNdpb1L/8j5X4t9ZTOZ9YO8T55aedyWiFbtHVVoIFQBM5UDfG",
+    "total": "500"
+  },
+  {
+    "role": "classes",
+    "classes": [
+      "S1",
+      "S2",
+      "S3",
+      "L3 SOD",
+      "L4 SOD",
+      "L5 SOD",
+      "L3 F&B (A)",
+      "L3 F&B(B)",
+      "L4 F&B",
+      "L5 F&B",
+      "L3 BUC",
+      "L4 BUC",
+      "L5 BUC",
+      "S4 ACC",
+      "S5 ACC",
+      "S6 ACC",
+      "L3 TORS",
+      "L4 TORS",
+      "L5 TORS"
+    ]
+  },
+  {
+    "role": "cards",
+    "cards": []
+  },
+  {
+    "role": "log",
+    "logs": []
+  },
+  {
+    "role": "disclaimer",
+    "message": "hey MF, leave this system!😡"
+  }
+]

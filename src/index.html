@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ECG</title>
+  <link rel="stylesheet" href="./output.css" />
+</head>
+
+<body onload="document.getElementById('preloader').style.display='none'">
+  <div class="flex w-full h-full font-sans bg-white shadow-lg">
+    <!-- Navigation -->
+    <ul class="bg-gray-100 min-w-[150px] max-sm:min-w-[110px]">
+      <li onclick="analytics()" id="dashboardTab"
+        class="tab text-blue-500 min-h-[100px] flex flex-col items-center justify-center font-bold w-full text-[15px] bg-white px-4 border-r-4 border-blue-500 cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-8 mb-1.5" viewBox="0 -960 960 960">
+          <path
+            d="M530-636.34v-147.31q0-15.66 10.43-26Q550.86-820 566.27-820h217.62q15.42 0 25.76 10.35 10.35 10.34 10.35 26v147.31q0 15.65-10.43 25.99Q799.14-600 783.73-600H566.11q-15.42 0-25.76-10.35Q530-620.69 530-636.34ZM140-496v-288.01q0-15.3 10.43-25.64Q160.86-820 176.27-820h217.62q15.42 0 25.76 10.35Q430-799.3 430-784v288.01q0 15.3-10.43 25.64Q409.14-460 393.73-460H176.11q-15.42 0-25.76-10.35Q140-480.7 140-496Zm390 320v-288.01q0-15.3 10.43-25.64Q550.86-500 566.27-500h217.62q15.42 0 25.76 10.35Q820-479.3 820-464v288.01q0 15.3-10.43 25.64Q799.14-140 783.73-140H566.11q-15.42 0-25.76-10.35Q530-160.7 530-176Zm-390-.35v-147.31q0-15.65 10.43-25.99Q160.86-360 176.27-360h217.62q15.42 0 25.76 10.35Q430-339.31 430-323.66v147.31q0 15.66-10.43 26Q409.14-140 393.73-140H176.11q-15.42 0-25.76-10.35-10.35-10.34-10.35-26ZM200-520h170v-240H200v240Zm390 320h170v-240H590v240Zm0-460h170v-100H590v100ZM200-200h170v-100H200v100Zm170-320Zm220-140Zm0 220ZM370-300Z" />
+        </svg>
+
+        Dashboard
+      </li>
+      <li id="cardsTab"
+        class="tab text-gray-600 min-h-[100px] flex flex-col items-center justify-center font-semibold w-full text-[15px] px-4 border-r-4 border-gray-100 cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor" class="w-8 mb-1.5">
+          <path
+            d="M246.15-251.54h227.7v-11.85q0-15.3-8.49-28.35-8.48-13.06-23.67-20.26-19.62-8.62-39.73-12.92-20.11-4.31-41.96-4.31t-41.96 4.31q-20.11 4.3-39.73 12.92-15.19 7.2-23.67 20.26-8.49 13.05-8.49 28.35v11.85Zm337.7-60.77h112.3q10.34 0 17.09-6.75 6.76-6.75 6.76-17.08 0-10.32-6.76-17.09-6.75-6.77-17.09-6.77h-112.3q-10.34 0-17.09 6.75-6.76 6.75-6.76 17.08 0 10.32 6.76 17.09 6.75 6.77 17.09 6.77ZM359.91-360q22.4 0 38.17-15.68 15.77-15.68 15.77-38.08 0-22.39-15.68-38.16-15.68-15.77-38.08-15.77t-38.17 15.68q-15.77 15.68-15.77 38.07 0 22.4 15.68 38.17Q337.51-360 359.91-360Zm223.94-60h112.3q10.34 0 17.09-6.75 6.76-6.75 6.76-17.08 0-10.32-6.76-17.09-6.75-6.77-17.09-6.77h-112.3q-10.34 0-17.09 6.75-6.76 6.75-6.76 17.08 0 10.32 6.76 17.09 6.75 6.77 17.09 6.77ZM172.31-100Q142-100 121-121q-21-21-21-51.31v-415.38Q100-618 121-639q21-21 51.31-21H380v-140q0-24.75 17.63-42.37Q415.25-860 440-860h80q24.75 0 42.37 17.63Q580-824.75 580-800v140h207.69Q818-660 839-639q21 21 21 51.31v415.38Q860-142 839-121q-21 21-51.31 21H172.31Zm0-60h615.38q5.39 0 8.85-3.46t3.46-8.85v-415.38q0-5.39-3.46-8.85t-8.85-3.46H580v15.39q0 24.53-17.73 42.26-17.73 17.73-42.27 17.73h-80q-24.54 0-42.27-17.73Q380-560.08 380-584.61V-600H172.31q-5.39 0-8.85 3.46t-3.46 8.85v415.38q0 5.39 3.46 8.85t8.85 3.46ZM440-584.61h80V-800h-80v215.39ZM480-380Z" />
+        </svg>
+        Cards
+      </li>
+      <li id="classesTab"
+        class="tab text-gray-600 min-h-[100px] flex flex-col items-center justify-center font-semibold w-full text-[15px] px-4 border-r-4 border-gray-100 cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-5 mb-1.5" viewBox="0 0 371.263 371.263">
+          <path
+            d="M305.402 234.794v-70.54c0-52.396-33.533-98.085-79.702-115.151.539-2.695.838-5.449.838-8.204C226.539 18.324 208.215 0 185.64 0s-40.899 18.324-40.899 40.899c0 2.695.299 5.389.778 7.964-15.868 5.629-30.539 14.551-43.054 26.647-23.593 22.755-36.587 53.354-36.587 86.169v73.115c0 2.575-2.096 4.731-4.731 4.731-22.096 0-40.959 16.647-42.995 37.845-1.138 11.797 2.755 23.533 10.719 32.276 7.904 8.683 19.222 13.713 31.018 13.713h72.217c2.994 26.887 25.869 47.905 53.534 47.905s50.54-21.018 53.534-47.905h72.217c11.797 0 23.114-5.03 31.018-13.713 7.904-8.743 11.797-20.479 10.719-32.276-2.036-21.198-20.958-37.845-42.995-37.845a4.704 4.704 0 0 1-4.731-4.731zM185.64 23.952c9.341 0 16.946 7.605 16.946 16.946 0 .778-.12 1.497-.24 2.275-4.072-.599-8.204-1.018-12.336-1.138-7.126-.24-14.132.24-21.078 1.198-.12-.778-.24-1.497-.24-2.275.002-9.401 7.607-17.006 16.948-17.006zm0 323.358c-14.431 0-26.527-10.3-29.342-23.952h58.683c-2.813 13.653-14.909 23.952-29.341 23.952zm143.655-67.665c.479 5.15-1.138 10.12-4.551 13.892-3.533 3.773-8.204 5.868-13.353 5.868H59.89c-5.15 0-9.82-2.096-13.294-5.868-3.473-3.772-5.09-8.743-4.611-13.892.838-9.042 9.282-16.168 19.162-16.168 15.809 0 28.683-12.874 28.683-28.683v-73.115c0-26.228 10.419-50.719 29.282-68.923 18.024-17.425 41.498-26.887 66.528-26.887 1.198 0 2.335 0 3.533.06 50.839 1.796 92.277 45.929 92.277 98.325v70.54c0 15.809 12.874 28.683 28.683 28.683 9.88 0 18.264 7.126 19.162 16.168z"
+            data-original="#000000"></path>
+        </svg>
+        Classes
+      </li>
+
+      <li id="logsTab"
+        class="tab text-gray-600 min-h-[100px] flex flex-col items-center justify-center font-semibold w-full text-[15px] px-4 border-r-4 border-gray-100 cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" stroke="currentColor" class="w-5 mb-1.5" viewBox="0 -960 960 960">
+          <path
+            d="M360-250h240q12.77 0 21.38-8.62Q630-267.23 630-280t-8.62-21.38Q612.77-310 600-310H360q-12.77 0-21.38 8.62Q330-292.77 330-280t8.62 21.38Q347.23-250 360-250Zm0-160h240q12.77 0 21.38-8.62Q630-427.23 630-440t-8.62-21.38Q612.77-470 600-470H360q-12.77 0-21.38 8.62Q330-452.77 330-440t8.62 21.38Q347.23-410 360-410ZM252.31-100Q222-100 201-121q-21-21-21-51.31v-615.38Q180-818 201-839q21-21 51.31-21h287.77q14.46 0 27.81 5.62 13.34 5.61 23.19 15.46l167.84 167.84q9.85 9.85 15.46 23.19 5.62 13.35 5.62 27.81v447.77Q780-142 759-121q-21 21-51.31 21H252.31ZM540-656.16V-800H252.31q-4.62 0-8.46 3.85-3.85 3.84-3.85 8.46v615.38q0 4.62 3.85 8.46 3.84 3.85 8.46 3.85h455.38q4.62 0 8.46-3.85 3.85-3.84 3.85-8.46V-620H576.16q-15.47 0-25.81-10.35Q540-640.69 540-656.16ZM240-800v180-180V-160v-640Z" />
+        </svg>
+        Logs
+      </li>
+
+      <li id="settingsTab"
+        class="tab text-gray-600 min-h-[100px] flex flex-col items-center justify-center font-semibold w-full text-[15px] px-4 border-r-4 border-gray-100 cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor" class="w-8 mb-1.5">
+          <path
+            d="M435.69-100q-20.46 0-35.34-13.58-14.89-13.57-18.12-33.42l-9.77-74.85q-16.07-5.38-32.96-15.07-16.88-9.7-30.19-20.77L240-228.23q-18.85 8.31-37.88 1.61-19.04-6.69-29.58-24.3l-45.08-78.16q-10.54-17.61-6.07-37.27 4.46-19.65 20.46-32.42l59.92-45q-1.38-8.92-1.96-17.92-.58-9-.58-17.93 0-8.53.58-17.34t1.96-19.27l-59.92-45q-16-12.77-20.27-32.62-4.27-19.84 6.27-37.46l44.69-77q10.54-17.23 29.58-24.11 19.03-6.89 37.88 1.42l68.92 29.08q14.47-11.46 30.89-20.96t32.27-15.27L382.23-813q3.23-19.85 18.12-33.42Q415.23-860 435.69-860h88.62q20.46 0 35.34 13.58 14.89 13.57 18.12 33.42l9.77 75.23q18 6.54 32.57 15.27 14.58 8.73 29.43 20.58L720.39-731q18.84-8.31 37.88-1.42 19.04 6.88 29.57 24.11l44.7 77.39q10.54 17.61 6.07 37.27-4.46 19.65-20.46 32.42l-61.46 46.15q2.15 9.69 2.35 18.12.19 8.42.19 16.96 0 8.15-.39 16.58-.38 8.42-2.76 19.27l60.3 45.38q16 12.77 20.66 32.42 4.65 19.66-5.89 37.27l-45.31 77.77q-10.53 17.62-29.76 24.31-19.23 6.69-38.08-1.62l-68.46-29.46q-14.85 11.85-30.31 20.96-15.46 9.12-31.69 14.89L577.77-147q-3.23 19.85-18.12 33.42Q544.77-100 524.31-100h-88.62Zm4.31-60h78.62L533-267.15q30.62-8 55.96-22.73 25.35-14.74 48.89-37.89L737.23-286l39.39-68-86.77-65.38q5-15.54 6.8-30.47 1.81-14.92 1.81-30.15 0-15.62-1.81-30.15-1.8-14.54-6.8-29.7L777.38-606 738-674l-100.54 42.38q-20.08-21.46-48.11-37.92-28.04-16.46-56.73-23.31L520-800h-79.38l-13.24 106.77q-30.61 7.23-56.53 22.15-25.93 14.93-49.47 38.46L222-674l-39.38 68L269-541.62q-5 14.24-7 29.62t-2 32.38q0 15.62 2 30.62 2 15 6.62 29.62l-86 65.38L222-286l99-42q22.77 23.38 48.69 38.31 25.93 14.92 57.31 22.92L440-160Zm40.46-200q49.92 0 84.96-35.04 35.04-35.04 35.04-84.96 0-49.92-35.04-84.96Q530.38-600 480.46-600q-50.54 0-85.27 35.04T360.46-480q0 49.92 34.73 84.96Q429.92-360 480.46-360ZM480-480Z" />
+        </svg>
+
+        Settings
+      </li>
+    </ul>
+    <!-- Navigation -->
+
+    <!-- Cards -->
+    <div id="cardsContent" class="flex flex-col justify-between hidden w-full px-6 py-4 mt-5 tab-content">
+
+      <div class="flex items-center justify-between w-full">
+        <div class="flex flex-col gap-2">
+          <h3 class="text-xl font-bold">Cards</h3>
+          <select name="" id="classes-select" class="p-1.5 px-[7px] border-2 rounded-md "
+            onchange="filterTable(this.value)">
+
+          </select>
+        </div>
+
+        <form onsubmit='event.preventDefault()' class='px-4 mx-auto w-[500px]'>
+          <div class='relative'>
+            <svg xmlns='http://www.w3.org/2000/svg'
+              class='absolute top-0 bottom-0 w-6 h-6 my-auto text-base-content left-3' fill='none' viewBox='0 0 24 24'
+              stroke='currentColor'>
+              <path strokelinecap='round' strokelinejoin='round' strokewidth='2'
+                d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'></path>
+            </svg>
+            <input type='text' id="myInput" onkeyup="searchTable()" placeholder='Search'
+              class='w-full py-3 pl-12 pr-4 border outline-none rounded-3xl text-base-content bg-base-200 focus:bg-base-100 focus:border-primary'>
+          </div>
+        </form>
+
+
+        <div class="flex items-center gap-2">
+          <button onclick="window.location.assign('./card/index.html?current_class='+current_class)" type="button"
+            class="p-2 transition-all duration-300 bg-transparent border-2 border-blue-700 rounded-lg outline-none hover:bg-blue-100">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+              <path
+                d="M332.31-140q-29.83 0-51.07-21.24Q260-182.48 260-212.31V-300h-76.15q-29.83 0-51.07-21.24-21.24-21.24-21.24-51.07v-155.38q0-42.5 29.04-71.25t70.96-28.75h536.92q42.5 0 71.25 28.75t28.75 71.25v155.38q0 29.83-21.24 51.07Q805.98-300 776.15-300H700v87.69q0 29.83-21.24 51.07Q657.52-140 627.69-140H332.31ZM183.85-360H260q.77-29.15 21.78-49.96 21.02-20.81 50.53-20.81h295.38q29.51 0 50.52 20.81Q699.23-389.15 700-360h76.15q5.39 0 8.85-3.46t3.46-8.85v-155.38q0-17-11.5-28.5t-28.5-11.5H211.54q-17 0-28.5 11.5t-11.5 28.5v155.38q0 5.39 3.46 8.85t8.85 3.46ZM640-627.69v-107.69q0-5.39-3.46-8.85t-8.85-3.46H332.31q-5.39 0-8.85 3.46t-3.46 8.85v107.69h-60v-107.69q0-29.83 21.24-51.07 21.24-21.24 51.07-21.24h295.38q29.83 0 51.07 21.24Q700-765.21 700-735.38v107.69h-60Zm72.31 160q17 0 28.5-11.5t11.5-28.5q0-17-11.5-28.5t-28.5-11.5q-17 0-28.5 11.5t-11.5 28.5q0 17 11.5 28.5t28.5 11.5ZM640-212.31v-146.15q0-5.39-3.46-8.85t-8.85-3.46H332.31q-5.39 0-8.85 3.46t-3.46 8.85v146.15q0 5.39 3.46 8.85t8.85 3.46h295.38q5.39 0 8.85-3.46t3.46-8.85ZM183.85-567.69H171.54h616.92H183.85Z" />
+            </svg>
+          </button>
+
+          <button onclick="document.getElementById('bulky_modal').classList.toggle('hidden')" type="button"
+            class="px-5 py-2.5 rounded-lg text-sm tracking-wider font-medium border border-current outline-none bg-blue-700 hover:bg-transparent text-white hover:text-blue-700 transition-all duration-300">
+            Bulky Add</button>
+          <button onclick="document.getElementById('new_cards_modal').classList.toggle('hidden')" type="button"
+            class="px-5 py-2.5 rounded-lg text-sm tracking-wider font-medium border border-current outline-none bg-blue-700 hover:bg-transparent text-white hover:text-blue-700 transition-all duration-300">
+            + New Student Card</button>
+        </div>
+
+      </div>
+
+      <div class="w-full h-full mt-5 overflow-auto">
+
+
+        <div class="font-sans bg-white">
+
+          <table class="min-w-full" id="ffTable">
+            <thead class="bg-gray-100 whitespace-nowrap">
+              <tr>
+                <th class="p-4 text-xs font-semibold text-left text-gray-800 w-36">
+                  Image
+                </th>
+                <th class="p-4 text-xs font-semibold text-left text-gray-800">
+                  Names
+                </th>
+
+                <th class="p-4 text-xs font-semibold text-left text-gray-800">
+                  Class
+                </th>
+                <!-- <th class="p-4 text-xs font-semibold text-left text-gray-800">
+                  Gender
+                </th> -->
+                <th class="p-4 text-xs font-semibold text-left text-gray-800">
+                  Action
+                </th>
+              </tr>
+            </thead>
+
+            <tbody class="whitespace-nowrap" id="students-out">
+
+            </tbody>
+          </table>
+        </div>
+
+
+
+
+      </div>
+
+      <!-- Modal -->
+
+      <div id="new_cards_modal"
+        class="modal fixed hidden inset-0 p-4 flex flex-col flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]">
+        <div class="relative w-full max-w-lg px-8 py-6 bg-white shadow-lg rounded-3xl">
+          <div class="flex items-start">
+            <div class="flex-1">
+              <h3 class="text-2xl font-bold text-gray-800">New Student Card (<span id="form-class">S1</span>)</h3>
+            </div>
+          </div>
+
+          <form class="flex flex-col flex-wrap gap-4 mt-6" id="newStudent" method="POST">
+            <div class="flex flex-col items-center gap-4 px-4 py-2.5 min-w-[220px]">
+              <img src="./dummy.png" id="preview" class="object-cover rounded-full shadow-md w-44 h-44" alt="">
+              <label for="uploadFile1"
+                class="flex bg-blue-800 hover:bg-blue-700 text-white text-base px-5 py-3 outline-none rounded w-max cursor-pointer mx-auto font-[sans-serif]">
+                <svg xmlns="http://www.w3.org/2000/svg" class="inline w-6 mr-2 fill-white" viewBox="0 0 32 32">
+                  <path
+                    d="M23.75 11.044a7.99 7.99 0 0 0-15.5-.009A8 8 0 0 0 9 27h3a1 1 0 0 0 0-2H9a6 6 0 0 1-.035-12 1.038 1.038 0 0 0 1.1-.854 5.991 5.991 0 0 1 11.862 0A1.08 1.08 0 0 0 23 13a6 6 0 0 1 0 12h-3a1 1 0 0 0 0 2h3a8 8 0 0 0 .75-15.956z"
+                    data-original="#000000" />
+                  <path
+                    d="M20.293 19.707a1 1 0 0 0 1.414-1.414l-5-5a1 1 0 0 0-1.414 0l-5 5a1 1 0 0 0 1.414 1.414L15 16.414V29a1 1 0 0 0 2 0V16.414z"
+                    data-original="#000000" />
+                </svg>
+                Upload
+                <input type="file" name="image" id='uploadFile1' accept="image/*" required
+                  onchange="previewImage(event)" class="hidden" />
+              </label>
+            </div>
+
+            <div
+              class="flex flex-1 px-4 py-2.5 rounded-lg border border-gray-300 focus-within:border-blue-600 min-w-[220px]">
+              <input type="text" name="name" placeholder="Student Name"
+                class="w-full text-sm text-gray-500 bg-transparent outline-none" required />
+            </div>
+
+            <div class="flex-col gap-3 py-2 min-w-[220px] hidden">
+              <label for="gender" class="font-[500]">Gender</label>
+              <div class="space-y-3">
+
+                <div class="flex items-center">
+                  <input type="radio" name="gender" value="Male" class="w-5 h-5" checked />
+                  <label class="ml-4 text-sm text-black">Male</label>
+                </div>
+
+                <div class="flex items-center">
+                  <input type="radio" name="gender" value="Female" class="w-5 h-5" />
+                  <label class="ml-4 text-sm text-black">Female</label>
+                </div>
+
+
+              </div>
+            </div>
+
+            <button type="submit"
+              class="px-5 py-2.5 rounded-lg text-white text-sm border-none outline-none tracking-wide bg-blue-600 hover:bg-blue-700">
+              + Add </button>
+          </form>
+
+        </div>
+      </div>
+
+      <form method="POST" id="bulky_modal"
+        class="modal hidden fixed inset-0 p-4 flex flex-col flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]">
+        <div class="relative w-full max-w-lg p-6 bg-white rounded-lg shadow-lg">
+          <div class="flex items-center pb-3 border-b border-gray-200">
+            <div class="flex-1">
+              <h3 class="text-xl font-bold text-gray-800">Bulky Editor</h3>
+              <p class="mt-1 text-xs text-gray-600">Upload all student pictures</p>
+            </div>
+          </div>
+
+          <div class="mt-6 border-2 border-gray-200 border-dashed rounded-lg">
+            <p id="ready" class="p-5 text-center" style="display: none;">Files ready for upload</p>
+            <label id="file-input" for="chooseFile"
+              class="p-4 min-h-[180px] flex flex-col items-center justify-center text-center cursor-pointer">
+              <svg xmlns="http://www.w3.org/2000/svg" class="inline-block w-10 mb-4 fill-gray-600" viewBox="0 0 32 32">
+                <path
+                  d="M23.75 11.044a7.99 7.99 0 0 0-15.5-.009A8 8 0 0 0 9 27h3a1 1 0 0 0 0-2H9a6 6 0 0 1-.035-12 1.038 1.038 0 0 0 1.1-.854 5.991 5.991 0 0 1 11.862 0A1.08 1.08 0 0 0 23 13a6 6 0 0 1 0 12h-3a1 1 0 0 0 0 2h3a8 8 0 0 0 .75-15.956z"
+                  data-original="#000000" />
+                <path
+                  d="M20.293 19.707a1 1 0 0 0 1.414-1.414l-5-5a1 1 0 0 0-1.414 0l-5 5a1 1 0 0 0 1.414 1.414L15 16.414V29a1 1 0 0 0 2 0V16.414z"
+                  data-original="#000000" />
+              </svg>
+
+              <h4 class="text-sm text-gray-600"><label for="chooseFile" class="text-blue-600 cursor-pointer">Choose
+                  Images</label> to upload</h4>
+              <input type="file" onchange="updateInterf()" name="images" id="chooseFile" class="hidden" accept="image/*"
+                multiple required />
+            </label>
+          </div>
+
+          <div class="flex flex-col p-4 mt-4 rounded-lg bg-gray-50">
+            <div class="flex">
+              <p class="flex-1 text-xs text-gray-600">
+                Progress
+              </p>
+            </div>
+
+            <div class="w-full h-2 my-2 bg-gray-300 rounded-full">
+              <div id="progress" style="width: 1px;" class="relative flex items-center h-full bg-blue-600 rounded-full">
+                <span class="absolute right-0 w-2 h-2 text-xs bg-white rounded-full"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex justify-between gap-4 pt-6 mt-6 border-t border-gray-200">
+            <button id="submit" type="submit"
+              class="w-full px-4 py-2 text-sm tracking-wide text-white bg-blue-600 border-none rounded-lg outline-none hover:bg-blue-700 active:bg-blue-600">
+              Publish all </button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!-- Cards -->
+
+
+    <!-- MAin dashboard -->
+    <div id="dashboardContent" class="flex flex-col w-full px-6 py-4 mt-5 tab-content">
+
+
+      <div class="font-[sans-serif] text-[#333] shadow-lg rounded-md p-5 h-fit mt-3">
+        <div class="grid divide-x divide-gray-100 lg:grid-cols-4 sm:grid-cols-2 gap-x-48 gap-y-32">
+          <div class="text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="inline-block w-10 fill-blue-600" viewBox="0 0 512 512">
+              <path
+                d="M437 268.152h-50.118c-6.821 0-13.425.932-19.71 2.646-12.398-24.372-37.71-41.118-66.877-41.118h-88.59c-29.167 0-54.479 16.746-66.877 41.118a74.798 74.798 0 0 0-19.71-2.646H75c-41.355 0-75 33.645-75 75v80.118c0 24.813 20.187 45 45 45h422c24.813 0 45-20.187 45-45v-80.118c0-41.355-33.645-75-75-75zm-300.295 36.53v133.589H45c-8.271 0-15-6.729-15-15v-80.118c0-24.813 20.187-45 45-45h50.118c4.072 0 8.015.553 11.769 1.572a75.372 75.372 0 0 0-.182 4.957zm208.59 133.589h-178.59v-133.59c0-24.813 20.187-45 45-45h88.59c24.813 0 45 20.187 45 45v133.59zm136.705-15c0 8.271-6.729 15-15 15h-91.705v-133.59a75.32 75.32 0 0 0-.182-4.957 44.899 44.899 0 0 1 11.769-1.572H437c24.813 0 45 20.187 45 45v80.119z"
+                data-original="#000000" />
+              <path
+                d="M100.06 126.504c-36.749 0-66.646 29.897-66.646 66.646-.001 36.749 29.897 66.646 66.646 66.646 36.748 0 66.646-29.897 66.646-66.646s-29.897-66.646-66.646-66.646zm-.001 103.292c-20.207 0-36.646-16.439-36.646-36.646s16.439-36.646 36.646-36.646 36.646 16.439 36.646 36.646-16.439 36.646-36.646 36.646zM256 43.729c-49.096 0-89.038 39.942-89.038 89.038s39.942 89.038 89.038 89.038 89.038-39.942 89.038-89.038c0-49.095-39.942-89.038-89.038-89.038zm0 148.076c-32.554 0-59.038-26.484-59.038-59.038 0-32.553 26.484-59.038 59.038-59.038s59.038 26.484 59.038 59.038c0 32.554-26.484 59.038-59.038 59.038zm155.94-65.301c-36.748 0-66.646 29.897-66.646 66.646.001 36.749 29.898 66.646 66.646 66.646 36.749 0 66.646-29.897 66.646-66.646s-29.897-66.646-66.646-66.646zm0 103.292c-20.206 0-36.646-16.439-36.646-36.646.001-20.207 16.44-36.646 36.646-36.646 20.207 0 36.646 16.439 36.646 36.646s-16.439 36.646-36.646 36.646z"
+                data-original="#000000" />
+            </svg>
+            <h3 class="mt-5 text-3xl font-extrabold text-blue-600" id="analytics-students">0</h3>
+            <p class="mt-3 font-semibold">Students</p>
+          </div>
+          <div class="text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="inline-block w-12 fill-blue-600">
+              <path
+                d="M139.23-220q-36.07 0-59.96-23.89-23.88-23.88-23.88-59.96v-352.3q0-36.08 23.88-59.96Q103.16-740 139.23-740h352.31q36.07 0 59.96 23.89 23.88 23.88 23.88 59.96v352.3q0 36.08-23.88 59.96Q527.61-220 491.54-220H139.23Zm-23.85-124.46q44-27.16 94-42.12 50-14.96 106-14.96t106 14.96q50 14.96 94 42.12v-311.69q0-10-6.92-16.93-6.92-6.92-16.92-6.92H139.23q-10 0-16.92 6.92-6.93 6.93-6.93 16.93v311.69Zm200 2.92q-43.69 0-86.53 12.12-42.85 12.11-81.7 36.73 1.16 6.15 7.5 9.42Q161-280 167.54-280h295.69q6.92 0 12.89-3.27 5.96-3.27 9.42-9.42-38.46-23.47-81.89-36.16-43.42-12.69-88.27-12.69Zm0-94.61q-42.69 0-73.26-30.58-30.58-30.58-30.58-73.27t30.58-73.27q30.57-30.58 73.26-30.58 42.7 0 73.27 30.58 30.58 30.58 30.58 73.27t-30.58 73.27q-30.57 30.58-73.27 30.58Zm0-56.31q19.81 0 33.68-13.87 13.86-13.86 13.86-33.67 0-19.81-13.86-33.67-13.87-13.87-33.68-13.87-19.8 0-33.67 13.87-13.87 13.86-13.87 33.67 0 19.81 13.87 33.67 13.87 13.87 33.67 13.87ZM709.99-220q-12.76 0-21.37-8.63Q680-237.25 680-250v-460q0-12.75 8.63-21.37 8.63-8.63 21.38-8.63 12.76 0 21.37 8.63Q740-722.75 740-710v460q0 12.75-8.63 21.37-8.63 8.63-21.38 8.63Zm164.61 0q-12.75 0-21.37-8.63-8.61-8.62-8.61-21.37v-460q0-12.75 8.62-21.37 8.63-8.63 21.39-8.63 12.75 0 21.37 8.63 8.61 8.62 8.61 21.37v460q0 12.75-8.62 21.37-8.63 8.63-21.39 8.63ZM315.38-540Zm1.16 260Z" />
+            </svg>
+            <h3 class="mt-5 text-3xl font-extrabold text-blue-600" id="analytics-cards">0</h3>
+            <p class="mt-3 font-semibold">Cards Made</p>
+          </div>
+          <div class="text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="inline-block w-10 fill-blue-600" viewBox="0 0 28 28">
+              <path
+                d="M18.56 16.94h-3.12l.65-2.16a2.58 2.58 0 0 0-1.66-3.21 1.41 1.41 0 0 0-1.81 1l-.1.42a8.61 8.61 0 0 1-2.26 4l-.57.56a1.56 1.56 0 0 0-1.21-.59h-.73a1.56 1.56 0 0 0-1.56 1.54v6.44a1.56 1.56 0 0 0 1.56 1.56h.73a1.55 1.55 0 0 0 1.33-.76l.14.07a6.55 6.55 0 0 0 2.91.69h3.59a3.58 3.58 0 0 0 3-1.6 6.34 6.34 0 0 0 1.07-3.53v-2.49a1.94 1.94 0 0 0-1.96-1.94zm-9.56 8a.56.56 0 0 1-.56.56h-.69a.56.56 0 0 1-.56-.56V18.5a.56.56 0 0 1 .56-.56h.73a.56.56 0 0 1 .52.56zm10.5-3.57a5.38 5.38 0 0 1-.9 3 2.59 2.59 0 0 1-2.15 1.15h-3.59a5.53 5.53 0 0 1-2.46-.58l-.4-.2V18.6l.92-.92a9.63 9.63 0 0 0 2.53-4.46l.1-.41a.43.43 0 0 1 .2-.26.4.4 0 0 1 .32 0 1.58 1.58 0 0 1 1 2l-.84 2.81a.5.5 0 0 0 .08.44.48.48 0 0 0 .4.2h3.79a.94.94 0 0 1 .94.94zM11 7.3l-.32 1.85a1.09 1.09 0 0 0 .44 1.09 1.11 1.11 0 0 0 .65.22 1.18 1.18 0 0 0 .52-.13L14 9.45l1.67.88a1.1 1.1 0 0 0 1.17-.09 1.09 1.09 0 0 0 .44-1.08L17 7.3 18.31 6a1.1 1.1 0 0 0 .29-1.14 1.12 1.12 0 0 0-.9-.76l-1.87-.27L15 2.12a1.12 1.12 0 0 0-2 0l-.83 1.69-1.87.27a1.12 1.12 0 0 0-.9.76A1.1 1.1 0 0 0 9.69 6zm-.6-2.23 2.13-.31a.49.49 0 0 0 .47-.27l1-1.93a.11.11 0 0 1 .2 0l1 1.93a.49.49 0 0 0 .38.27l2.13.31a.12.12 0 0 1 .09.08.11.11 0 0 1 0 .11l-1.54 1.5a.53.53 0 0 0-.15.45l.37 2.11a.09.09 0 0 1-.05.11.1.1 0 0 1-.12 0l-1.9-1a.47.47 0 0 0-.46 0l-1.91 1a.09.09 0 0 1-.11 0 .09.09 0 0 1-.05-.11l.37-2.11a.53.53 0 0 0-.15-.45l-1.54-1.5a.11.11 0 0 1 0-.11.12.12 0 0 1-.12-.08zm-3.06 8.18a1 1 0 0 0 1-1.19l-.27-1.52 1.12-1.09a1 1 0 0 0-.56-1.73L7.1 7.5l-.69-1.39a1.05 1.05 0 0 0-1.82 0L3.9 7.5l-1.53.22a1 1 0 0 0-.56 1.73l1.11 1.09-.27 1.52a1 1 0 0 0 .41 1 1 1 0 0 0 1.07.07l1.37-.72 1.37.72a1 1 0 0 0 .47.12zm-1.84-1.9a.46.46 0 0 0-.23.06l-1.63.82.36-1.78a.53.53 0 0 0-.2-.45L2.51 8.71l1.8-.26a.47.47 0 0 0 .37-.27l.83-1.63.81 1.63a.47.47 0 0 0 .37.27l1.8.29L7.2 10a.53.53 0 0 0-.15.45l.29 1.8-1.61-.84a.46.46 0 0 0-.23-.06zm20.95-2.94a1 1 0 0 0-.82-.69L24.1 7.5l-.69-1.39a1.05 1.05 0 0 0-1.82 0L20.9 7.5l-1.53.22a1 1 0 0 0-.56 1.73l1.11 1.09-.27 1.52a1 1 0 0 0 .41 1 1 1 0 0 0 1.07.07l1.37-.72 1.37.72a1 1 0 0 0 .47.12 1 1 0 0 0 1-1.19l-.27-1.52 1.11-1.09a1 1 0 0 0 .27-1.04zM24.2 10a.53.53 0 0 0-.15.45l.29 1.8-1.61-.84a.47.47 0 0 0-.46 0l-1.63.82.36-1.78a.53.53 0 0 0-.2-.45l-1.29-1.29 1.8-.26a.47.47 0 0 0 .37-.27l.83-1.63.81 1.63a.47.47 0 0 0 .37.27l1.8.29z"
+                data-name="Layer 2" data-original="#000000" />
+            </svg>
+            <h3 class="mt-5 text-3xl font-extrabold text-blue-600" id="analytics-finish">0</h3>
+            <p class="mt-3 font-semibold">Finish Rate</p>
+          </div>
+          <div class="text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="inline-block w-12 fill-blue-600">
+              <path
+                d="M210-204.62q-12.75 0-21.37-8.62-8.63-8.63-8.63-21.39 0-12.75 8.63-21.37 8.62-8.61 21.37-8.61h42.31v-298.47q0-80.69 49.81-142.69 49.8-62 127.88-79.31V-810q0-20.83 14.57-35.42Q459.14-860 479.95-860q20.82 0 35.43 14.58Q530-830.83 530-810v24.92q78.08 17.31 127.88 79.31 49.81 62 49.81 142.69v298.47H750q12.75 0 21.37 8.62 8.63 8.63 8.63 21.39 0 12.75-8.63 21.37-8.62 8.61-21.37 8.61H210Zm270-293.07Zm-.07 405.38q-29.85 0-51.04-21.24-21.2-21.24-21.2-51.07h144.62q0 29.93-21.26 51.12-21.26 21.19-51.12 21.19Zm-167.62-172.3h335.38v-298.47q0-69.46-49.11-118.57-49.12-49.12-118.58-49.12-69.46 0-118.58 49.12-49.11 49.11-49.11 118.57v298.47Z" />
+            </svg>
+            <h3 class="mt-5 text-3xl font-extrabold text-blue-600" id="analytics-classes">0</h3>
+            <p class="mt-3 font-semibold">Total Classes</p>
+          </div>
+        </div>
+      </div>
+
+
+
+
+      <!-- Recent activity -->
+      <div class="w-full h-56 py-5 mt-16">
+        <div class="shadow-md">
+          <div
+            class="w-full mx-auto bg-gray-50 border-t-[7px] border-blue-500 text-gray-800 rounded-lg font-[sans-serif]"
+            role="alert">
+            <div class="w-full px-8 py-6">
+              <h4 class="mb-3 text-lg font-bold">Recent Activity!</h4>
+              <p class="text-sm" id="recentActivity"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="inline-flex items-center justify-center">
+        <button onclick="openFolder()"
+          class="w-56 px-6 text-lg text-white bg-indigo-500 border-0 rounded py-9 focus:outline-none hover:bg-indigo-600">
+          Get all cards
+        </button>
+      </div>
+    </div>
+    <!-- MAin dashboard -->
+
+
+
+    <!-- Classes -->
+    <div id="classesContent" class="flex flex-col justify-between hidden w-full px-6 py-4 mt-5 tab-content">
+
+      <div class="flex items-center justify-between w-full">
+        <h3 class="text-xl font-bold" onclick="getClasses()">Classes</h3>
+        <button onclick="document.getElementById('new_class_modal').classList.toggle('hidden')" type="button"
+          class="px-5 py-2.5 rounded-lg text-sm tracking-wider font-medium border border-current outline-none bg-blue-700 hover:bg-transparent text-white hover:text-blue-700 transition-all duration-300">
+          + New Class</button>
+
+      </div>
+
+      <div class="w-full h-full mt-5 overflow-auto">
+
+
+        <div class="font-sans bg-white">
+          <table class="min-w-full">
+            <thead class="bg-gray-100 whitespace-nowrap">
+              <tr>
+                <th class="p-4 text-xs font-semibold text-left text-gray-800">
+                  #
+                </th>
+                <th class="p-4 text-xs font-semibold text-left text-gray-800">
+                  Class
+                </th>
+
+                <th class="p-4 text-xs font-semibold text-left text-gray-800">
+                  Remove
+                </th>
+              </tr>
+            </thead>
+
+            <tbody id="class-out" class="whitespace-nowrap">
+
+
+
+            </tbody>
+          </table>
+        </div>
+
+
+
+
+      </div>
+
+      <!-- Modal -->
+
+      <div id="new_class_modal"
+        class="modal hidden fixed inset-0 p-4 flex flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]">
+        <div class="relative w-full max-w-lg px-8 py-6 bg-white shadow-lg rounded-3xl">
+          <div class="flex items-start">
+            <div class="flex-1">
+              <h3 class="text-2xl font-bold text-gray-800">New Class</h3>
+            </div>
+          </div>
+
+          <form id="newClass" class="flex flex-wrap gap-4 mt-6">
+            <div
+              class="flex flex-1 px-4 py-2.5 rounded-lg border border-gray-300 focus-within:border-blue-600 min-w-[220px]">
+              <input type="text" name="class" placeholder="Class label"
+                class="w-full text-sm text-gray-500 bg-transparent outline-none" />
+            </div>
+
+            <button type="submit"
+              class="px-5 py-2.5 rounded-lg text-white text-sm border-none outline-none tracking-wide bg-blue-600 hover:bg-blue-700">
+              + Add </button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+    <!-- Classes -->
+
+
+    <!-- Logs container -->
+    <div id="logsContent" class="flex flex-col justify-between hidden w-full px-6 py-4 mt-5 tab-content">
+      <div class="flex items-center justify-between w-full">
+        <h3 class="text-xl font-bold" onclick="getLogs()">Logs</h3>
+
+      </div>
+
+      <div class="w-full h-full mt-5 space-y-2 overflow-auto" id="logsOut">
+        Loading...
+      </div>
+    </div>
+    <!-- Logs container -->
+
+    <!-- Settings container -->
+    <div id="settingsContent" class="flex flex-col justify-between hidden w-full px-6 py-4 mt-5 tab-content">
+      <div class="flex items-center justify-between w-full">
+        <h3 class="text-xl font-bold" onclick="getLogs()">Settings</h3>
+      </div>
+      <div class="w-full h-full mt-5 space-y-2 overflow-auto">
+
+        <div id="settingsForm" class="flex flex-col mt-6">
+
+          <form method="POST" id="academicForm" class="flex items-center gap-3">
+            <label for="year" class="text-lg font-medium">Academic Year</label>
+            <div
+              class="flex flex-1 px-4 py-2.5 rounded-lg border border-gray-300 focus-within:border-blue-600 min-w-[220px]">
+              <input type="text" id="year" name="academic" placeholder="Current academic Year"
+                class="w-full text-sm text-gray-500 bg-transparent outline-none" />
+            </div>
+            <button type="submit"
+              class="px-5 py-2 text-lg text-white bg-indigo-500 border-0 rounded focus:outline-none hover:bg-indigo-600">
+              Update
+            </button>
+          </form>
+
+          <form method="POST" id="totalStudentsForm" class="flex items-center gap-3 mt-10">
+            <label for="totStd" class="text-lg font-medium">Total Students</label>
+            <div
+              class="flex flex-1 px-4 py-2.5 rounded-lg border border-gray-300 focus-within:border-blue-600 min-w-[220px]">
+              <input type="number" id="totStd" name="totalStudents" placeholder="Total Number Of Students"
+                class="w-full text-sm text-gray-500 bg-transparent outline-none" />
+            </div>
+            <button type="submit"
+              class="px-5 py-2 text-lg text-white bg-indigo-500 border-0 rounded focus:outline-none hover:bg-indigo-600">
+              Update
+            </button>
+          </form>
+
+          <form method="POST" id="passwordForm" class="p-3 mt-10 border border-red-300 rounded-md">
+            <label for="pswd" class="text-lg font-medium">Password</label>
+            <div class="mt-3 space-y-5">
+              <div
+                class="flex flex-1 px-4 py-2.5 rounded-lg border border-gray-300 focus-within:border-blue-600 min-w-[220px]">
+                <input type="password" id="pswd" name="oldPswd" placeholder="Old Password" required
+                  class="w-full text-sm text-gray-500 bg-transparent outline-none" />
+              </div>
+              <div
+                class="flex flex-1 px-4 py-2.5 rounded-lg border border-gray-300 focus-within:border-blue-600 min-w-[220px]">
+                <input type="password" id="pswd" name="newPswd" placeholder="New Password" required
+                  class="w-full text-sm text-gray-500 bg-transparent outline-none" />
+              </div>
+            </div>
+            <button type="submit"
+              class="px-5 py-2 mt-5 text-lg text-white bg-red-500 border-0 rounded focus:outline-none hover:bg-red-600">
+              Change
+            </button>
+          </form>
+
+          <!-- <button
+            class="w-full px-6 py-2 mt-10 text-lg text-white bg-indigo-500 border-0 rounded focus:outline-none hover:bg-indigo-600">
+            All Backup Data
+          </button> -->
+
+        </div>
+      </div>
+    </div>
+    <!-- Settings container -->
+
+
+  </div>
+
+  <div id="preloader"
+    class="absolute top-0 flex flex-col items-center justify-center w-full h-full text-white bg-white ">
+    <div class='flex items-center justify-center h-screen space-x-2 bg-white'>
+      <span class='sr-only'>Loading...</span>
+      <div class='h-8 w-8 bg-black rounded-full animate-bounce [animation-delay:-0.3s]'></div>
+      <div class='h-8 w-8 bg-black rounded-full animate-bounce [animation-delay:-0.15s]'></div>
+      <div class='w-8 h-8 bg-black rounded-full animate-bounce'></div>
+    </div>
+  </div>
+
+  <script src="./active.js"></script>
+  <script src="./renderer.js"></script>
+  <script src="./formHandler.js"></script>
+  <script src="./filter.js"></script>
+  <script>
+
+    let modals = document.querySelectorAll('.modal');
+    modals.forEach((modal) => {
+      modal.addEventListener('click', (e) => {
+        if (e.target.classList.contains('modal')) {
+
+          modal.classList.toggle('hidden');
+        }
+      })
+
+    });
+
+    function previewImage(event) {
+      document.getElementById('preview').src = URL.createObjectURL(event.target.files[0]);
+    }
+
+    function openFolder() {
+      const { shell } = require('electron')
+      shell.openExternal(__dirname + '/card/cards');
+    }
+
+  </script>
+</body>
+
+</html>

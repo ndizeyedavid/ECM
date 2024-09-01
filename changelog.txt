@@ -1,0 +1,13 @@
+ESSA Student Cards Management System
+====================================
+
+
+v 1.0.0
+
+* this is the initial releas of the system, more and more updates will be done soon. So stay tuned
+
+
+
+
+Develoeper: David Ndizeye
+website: http://www.github.com/ndizeyedavid

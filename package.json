@@ -1,0 +1,50 @@
+{
+  "name": "essa-student-cards-management-system",
+  "productName": "ECM",
+  "version": "1.0.0",
+  "description": "ECM is designed to manage and ease the process of creating student cards ensuring quality and optimistic approach",
+  "main": "src/index.js",
+  "icon": "./icon.ico",
+  "scripts": {
+    "serve": "npx tailwindcss -i ./src/index.css -o ./src/output.css --watch",
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "echo \"No linting configured\""
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^7.4.0",
+    "@electron-forge/maker-deb": "^7.4.0",
+    "@electron-forge/maker-rpm": "^7.4.0",
+    "@electron-forge/maker-squirrel": "^7.4.0",
+    "@electron-forge/maker-zip": "^7.4.0",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.4.0",
+    "@electron-forge/plugin-fuses": "^7.4.0",
+    "@electron/fuses": "^1.8.0",
+    "electron": "32.0.1",
+    "electron-builder": "^24.13.3",
+    "electron-packager": "^17.1.2",
+    "electron-winstaller": "^5.4.0",
+    "tailwindcss": "^3.4.10"
+  },
+  "keywords": [],
+  "author": {
+    "name": "ndizeyedavid",
+    "email": "davidndizeye101@gmail.com"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "dom-to-pdf": "^0.3.2",
+    "electron-squirrel-startup": "^1.0.1",
+    "formidable": "^3.5.1",
+    "html-pdf": "^3.0.1",
+    "html2canvas": "^1.4.1",
+    "jsonminify": "^0.4.2",
+    "jsonschema": "^1.4.1",
+    "jspdf": "^2.5.1",
+    "qrcode": "^1.5.4",
+    "toastify-js": "^1.12.0"
+  }
+}

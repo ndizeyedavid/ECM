@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECG</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #670409;
+            --secondary: #f19c00;
+            --text: #04496b;
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: "Inter";
+
+        }
+
+        html {
+            background-color: #f8f8f8 !important;
+        }
+
+        body {
+            background-color: #f8f8f8;
+            /* overflow-x: hidden; */
+        }
+
+        .std-card {
+            position: relative;
+            width: 100%;
+            /* width: 100vw !important; */
+            height: 100vh;
+            /* background-color: #f8f8f8; */
+        }
+
+        /* .card-details{} */
+        .footer {
+            position: absolute;
+            bottom: 30px;
+            height: 90px;
+            width: 1500px;
+        }
+
+        .footer img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .card-details {
+            position: relative;
+            top: 5px;
+            left: 80px;
+            width: 80%;
+        }
+
+        .header {
+            width: 1530px;
+        }
+
+        .header img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .card-details .img-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            border: 20px solid var(--primary);
+            border-radius: 100%;
+            padding: 5px;
+            z-index: 20;
+        }
+
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            border-radius: 100%;
+        }
+
+        .img-ribbon {
+            position: absolute;
+            top: 34px;
+            left: 180px;
+            padding: 0;
+            margin: 0;
+            background: linear-gradient(to right, var(--secondary) 20%, #f8f8f8 80%);
+            width: fit-content;
+            height: fit-content;
+            display: flex;
+            align-items: center;
+            z-index: 0;
+        }
+
+        .img-ribbon .side {
+            width: 100px;
+            height: 100%;
+        }
+
+        .info {
+            position: absolute;
+            top: 125px;
+            left: 310px;
+            font-size: 30px;
+            color: var(--text);
+            font-weight: 800;
+            /* width: 100%; */
+            width: fit-content;
+        }
+
+        td {
+            text-transform: uppercase;
+        }
+
+        .year {
+            position: absolute;
+            top: 30px;
+            left: 90px;
+            font-size: 35px;
+            font-weight: bolder;
+            color: white;
+            font-style: italic;
+            letter-spacing: 5px;
+        }
+
+        @media print {
+            @page {
+                orientation: landscape;
+                /* Change to 'portrait' for portrait orientation */
+                size: 3.370in 2.125in landscape;
+                /* size: A4 landscape; */
+            }
+
+            #nav {
+                display: none;
+            }
+        }
+
+        .qr {
+            position: absolute;
+            right: 50px;
+            z-index: 9999999999999;
+            bottom: 30px;
+            width: 250px;
+            height: 200px;
+            background-color: white;
+        }
+
+        .qr img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .qr .logo {
+            /* display: none; */
+            background-color: white;
+            border-radius: 10px;
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1 style="margin-bottom: 30px; padding-top: 20px;">Current Class: <span id="cur-class">S1</span></h1>
+    <hr>
+    <div id="nav"
+        style="width: 100%; height: 50px; padding: 30px; margin-bottom: 5px; display: flex; justify-content: space-between; align-items: center;">
+
+        <a href="../index.html" title="Back">
+            <svg xmlns="http://www.w3.org/2000/svg" height="54px" viewBox="0 -960 960 960" width="54px" fill="#5f6368">
+                <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z" />
+            </svg>
+        </a>
+
+        <a href="javascript:void(0)" onclick="saveAll()" title="Save">
+            <svg xmlns="http://www.w3.org/2000/svg" height="54px" viewBox="0 -960 960 960" width="54px" fill="#5f6368">
+                <path
+                    d="M840-680v480q0 33-23.5 56.5T760-120H200q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h480l160 160Zm-80 34L646-760H200v560h560v-446ZM480-240q50 0 85-35t35-85q0-50-35-85t-85-35q-50 0-85 35t-35 85q0 50 35 85t85 35ZM240-560h360v-160H240v160Zm-40-86v446-560 114Z" />
+            </svg>
+        </a>
+
+        <a href="javascript:void(0)" download="" id="download-link" title="Download">
+            <svg xmlns="http://www.w3.org/2000/svg" height="54px" viewBox="0 -960 960 960" width="54px" fill="#5f6368">
+                <path
+                    d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z" />
+            </svg>
+        </a>
+    </div>
+    <hr style="margin-bottom: 300px;">
+
+    <label>Saving progress</label>
+    <progress id="pdfProgress" value="0" max="100" style="width: 100%; margin-bottom: 500px;"></progress>
+
+
+
+    <div id="cards">
+
+    </div>
+    <script src="./card_tst.js"></script>
+</body>
+
+</html>
