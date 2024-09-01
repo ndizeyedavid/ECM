@@ -13,6 +13,7 @@ This project is a desktop application built with Electron Forge to manage studen
 
 ## Technologies
 
+- Tailwind css: Wonder how the beatiful design was created? Yeah, Tailwind is behind that :)
 - Electron: The standalone application feature and communication with the system architecture
 - bcrypt: Password encrypting and hashing to secure login form, preventing unathorised creation of the cards
 - qrcode: Individiual QR Code  for each student, each with a set of information store in it
