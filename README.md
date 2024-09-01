@@ -4,7 +4,7 @@ _This is version 1.0.0 of the project, more updates will be done soon_
 
 # ESSA Student Cards Management System (ECM)
 
-This project is a desktop application built with Electron Forge to manage student cards for ESSA Nyarugunga school. It offers a user-friendly interface to streamline the creation, editing, and printing of student cards.
+This project is a desktop application built with Electron Forge to manage student cards for my school ESSA Nyarugunga. It offers a user-friendly interface to streamline the creation, editing, and printing of student cards.
 
 ## Features
 
