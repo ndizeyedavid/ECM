@@ -11,6 +11,14 @@ This project is a desktop application built with Electron Forge to manage studen
 - Print student cards: Print high-quality student cards directly from the application for efficient card distribution.
 - Import data: Select a folder containing students' images with there respective names to quickly create all of them at once (Bulky Add).
 
+## Technologies
+
+- Electron: The standalone application feature and communication with the system architecture
+- bcrypt: Password encrypting and hashing to secure login form, preventing unathorised creation of the cards
+- qrcode: Individiual QR Code  for each student, each with a set of information store in it
+- jspdf: The main library for creating PDF from the html structure of the student cards
+- html2canvas: Before creating a PDF, this library first converts the html structure to an JPEG image with 75% compression for quality and optimised result
+
 ## Getting Started
 
 Prerequisites:
@@ -60,8 +68,21 @@ I welcome contributions to this project! If you have any bug fixes, improvements
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE.txt).
+This project is licensed under the [MIT License](https://github.com/user-attachments/files/16827411/license.txt).
 
 ## Contact
 
 If you have any questions or suggestions, feel free to create an issue on this repository or contact davidndizeye101@gmail.com
+
+## Known bug
+
+When saving a pdf, i don't know how it's happening but a blank page is first created at the beginning of the pdf document. If you know how to correct that, please help. I would be grateful
+
+## Screeshots
+![Screenshot 2024-09-01 065300](https://github.com/user-attachments/assets/953a7225-a16c-46e4-ae28-6c4bec756fa8)
+![Screenshot 2024-09-01 065335](https://github.com/user-attachments/assets/6f9af6f2-8d7a-4cd7-90b2-ae99145aa093)
+![Screenshot 2024-09-01 065320](https://github.com/user-attachments/assets/08233b32-8dba-4eff-aacc-11d541d4afb8)
+![Screenshot 2024-09-01 065444](https://github.com/user-attachments/assets/dbc64432-e7bf-4dc1-b5dc-9c1fa63989f1)
+![Screenshot 2024-09-01 065421](https://github.com/user-attachments/assets/32b062f4-f985-417d-9765-9b4ef34b25fd)
+![Screenshot 2024-09-01 065409](https://github.com/user-attachments/assets/7a134492-63cf-40a1-82ba-86a6f55127f5)
+![Screenshot 2024-09-01 065357](https://github.com/user-attachments/assets/2a2f3286-b3dc-443c-af6e-8e793486cb10)
