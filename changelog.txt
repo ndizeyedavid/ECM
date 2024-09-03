@@ -1,12 +1,20 @@
 ESSA Student Cards Management System
 ====================================
 
+v 1.0.2
+
+* now i've created my own alert box that does not affect other operations of the system
+* the snackbars(notifications) are in two varieties, the error alert and successfully alert
+
+v 1.0.1
+
+* this patch introduces snackbars(notifications) when an operation is successfully or if an error is encountered 
+* we are using the built in alert boxes of electron, but there is an issue whenever you click okay, the inputs are unaccessible
+    until you close and open the program
 
 v 1.0.0
 
 * this is the initial releas of the system, more and more updates will be done soon. So stay tuned
-
-
 
 
 Develoeper: David Ndizeye

@@ -1,7 +1,7 @@
 {
   "name": "essa-student-cards-management-system",
   "productName": "ECM",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "ECM is designed to manage and ease the process of creating student cards ensuring quality and optimistic approach",
   "main": "src/index.js",
   "icon": "./icon.ico",

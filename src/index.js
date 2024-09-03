@@ -5,7 +5,7 @@ function createWindow() {
   const win = new BrowserWindow({
     // frame: false,
     title: "ECG",
-    menuBar: false,
+    // menuBar: false,
 
     icon: path.join(__dirname, "icon.png"),
     width: 1080,
@@ -15,10 +15,10 @@ function createWindow() {
       contextIsolation: false,
     },
   });
-  Menu.setApplicationMenu(null);
+  // Menu.setApplicationMenu(null);
 
-  // win.loadFile("src/index.html");
-  win.loadFile("src/login.html");
+  win.loadFile("src/index.html");
+  // win.loadFile("src/login.html");
 }
 
 app.whenReady().then(createWindow);

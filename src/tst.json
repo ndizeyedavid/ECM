@@ -1,9 +1,9 @@
 [
   {
     "role": "credentials",
-    "year": "2024 / 2025",
-    "pswd": "$2b$10$yVbVPNdpb1L/8j5X4t9ZTOZ9YO8T55aedyWiFbtHVVoIFQBM5UDfG",
-    "total": "500"
+    "year": "2025 / 2026",
+    "pswd": "$2b$10$6.iFu9t8APDl2ql9JyR5A.l/uq1Z4C3wOe86ZkQMcGCdITIuPy.3q",
+    "total": "900"
   },
   {
     "role": "classes",
@@ -35,7 +35,13 @@
   },
   {
     "role": "log",
-    "logs": []
+    "logs": [
+      "A student has been deleted id: 0",
+      "Academic year Changed",
+      "Total number of students updated",
+      "Total number of students updated",
+      "Password Changed"
+    ]
   },
   {
     "role": "disclaimer",

@@ -191,6 +191,7 @@ function insertCardData(std_data) {
       } else {
         console.log("Student data saved successfully!");
         fetchStudents(current_class);
+        alert("Student data saved successfully!");
       }
     });
   });
@@ -219,6 +220,7 @@ function bulkyInsertCardData(std_data) {
             resolve();
             fetchStudents(current_class);
             logThis("Multiple students have inserted with bulky insert");
+            alert("Students data saved successfully!");
           }
         });
       }
@@ -327,6 +329,7 @@ function deleteStudent(stdId) {
       }
     });
   });
+  alert("Student deleted successfully");
 }
 
 function updateStudentCard(id, std_data) {
@@ -351,8 +354,9 @@ function updateStudentCard(id, std_data) {
       if (err) {
         console.error("Error writing to tst.json:", err);
       } else {
-        console.log("Student data saved successfully!");
+        console.log("Student data updated successfully!");
         fetchStudents(current_class);
+        alert("Student data updated!");
       }
     });
   });
@@ -409,6 +413,7 @@ function updateTotalStudents(count) {
       } else {
         getClasses();
         logThis("Total number of students updated");
+        alert("Total number of students updated");
       }
     });
   });
@@ -439,6 +444,7 @@ async function updatePassword(pswd) {
       } else {
         getClasses();
         logThis("Password Changed");
+        alert("Password Changed");
       }
     });
   });
@@ -465,6 +471,7 @@ function updateAcademicYear(year) {
       } else {
         getClasses();
         logThis("Academic year Changed");
+        alert("Academic year changed");
       }
     });
   });
