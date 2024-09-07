@@ -6,9 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ECG</title>
   <link rel="stylesheet" href="./output.css" />
+  <link rel="stylesheet" href="./toast.css">
 </head>
 
 <body onload="document.getElementById('preloader').style.display='none'">
+  <div id="snackbar-success">Message</div>
+  <div id="snackbar-error">Some text some message..</div>
+
   <div class="flex w-full h-full font-sans bg-white shadow-lg">
     <!-- Navigation -->
     <ul class="bg-gray-100 min-w-[150px] max-sm:min-w-[110px]">
@@ -498,6 +502,7 @@
     </div>
   </div>
 
+  <script src="./toast.js"></script>
   <script src="./active.js"></script>
   <script src="./renderer.js"></script>
   <script src="./formHandler.js"></script>

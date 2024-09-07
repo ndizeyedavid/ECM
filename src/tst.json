@@ -31,7 +31,14 @@
   },
   {
     "role": "cards",
-    "cards": []
+    "cards": [
+      {
+        "name": "asda",
+        "class": "S1",
+        "gender": "Male",
+        "image": "C:\\Users\\M E L L O W\\Desktop\\electron\\my-app-taiwind\\src\\students\\S1\\asda.png"
+      }
+    ]
   },
   {
     "role": "log",
@@ -40,7 +47,14 @@
       "Academic year Changed",
       "Total number of students updated",
       "Total number of students updated",
-      "Password Changed"
+      "Password Changed",
+      "A student has been deleted id: 0",
+      "Academic year Changed",
+      "Academic year Changed",
+      "Total number of students updated",
+      "Total number of students updated",
+      "Total number of students updated",
+      "Total number of students updated"
     ]
   },
   {

@@ -255,12 +255,13 @@ document
 
     const oldPassword = formObject.oldPswd;
     const newPassword = formObject.newPswd;
-
+    e.target.reset();
     if (await bcrypt.compare(oldPassword, old)) {
       updatePassword(newPassword);
       console.log("Password updated successfully");
     } else {
       console.log("Incorrect old password");
+      notif("err", "Old password is incorrect");
     }
   });
 

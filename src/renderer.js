@@ -28,6 +28,7 @@ function logThis(msg) {
     // console.log(parsedData);
     fs.writeFile(filePath, JSON.stringify(parsedData, null, 2), (err) => {
       if (err) {
+        notif("err", "Failed to log activity");
         return false;
       } else {
         getLogs();
@@ -44,6 +45,7 @@ function getCardDataTable() {
   fs.readFile(filePath, "utf-8", (err, data) => {
     if (err) {
       console.log("An error occurred reading the file:", err);
+      notif("err", "An error occurred reading Database");
       return;
     }
     const parsedData = JSON.parse(data);
@@ -67,6 +69,8 @@ function analytics() {
   fs.readFile(filePath, "utf-8", (err, data) => {
     if (err) {
       console.log("An error occurred reading the file:", err);
+      notif("err", "An error occurred, please close and reopen this app");
+
       return;
     }
     const parsedData = JSON.parse(data);
@@ -101,6 +105,8 @@ function getClasses() {
   fs.readFile(filePath, "utf-8", (err, data) => {
     if (err) {
       console.log("An error occurred reading the file:", err);
+      notif("err", "An error occurred, please close and reopen this app");
+
       return;
     }
     const parsedData = JSON.parse(data);
@@ -136,6 +142,7 @@ function insertClass(newClass) {
     // console.log(parsedData);
     fs.writeFile(filePath, JSON.stringify(parsedData, null, 2), (err) => {
       if (err) {
+        notif("err", "Failed to create a new class");
         return false;
       } else {
         getClasses();
@@ -161,6 +168,7 @@ function deleteClass(classId) {
     // console.log(class_data);
     fs.writeFile(filePath, JSON.stringify(parsedData, null, 2), (err) => {
       if (err) {
+        notif("err", "Failed to delete class");
         return false;
       } else {
         getClasses();
@@ -188,10 +196,12 @@ function insertCardData(std_data) {
     fs.writeFile(filePath, JSON.stringify(parsedData, null, 2), (err) => {
       if (err) {
         console.error("Error writing to tst.json:", err);
+        notif("err", "Failed to register new student card");
+        return;
       } else {
         console.log("Student data saved successfully!");
         fetchStudents(current_class);
-        alert("Student data saved successfully!");
+        notif("success", "Student data saved successfully!");
       }
     });
   });
@@ -216,11 +226,12 @@ function bulkyInsertCardData(std_data) {
         fs.writeFile(filePath, JSON.stringify(parsedData, null, 2), (err) => {
           if (err) {
             reject(err);
+            notif("err", "Operation failed, try again");
           } else {
             resolve();
             fetchStudents(current_class);
             logThis("Multiple students have inserted with bulky insert");
-            alert("Students data saved successfully!");
+            notif("success", "Students data saved successfully!");
           }
         });
       }
@@ -242,6 +253,7 @@ function fetchStudents(current_class) {
         const students = parsedData[2].cards;
 
         const fragment = document.createDocumentFragment();
+
         for (let i = 0; i < students.length; i++) {
           if (current_class == students[i].class) {
             const tr = document.createElement("tr");
@@ -315,21 +327,14 @@ function deleteStudent(stdId) {
     class_data.splice(stdId, 1);
     fs.writeFile(filePath, JSON.stringify(parsedData, null, 2), (err) => {
       if (err) {
-        Toastify({
-          text: "Error removing student data",
-          className: "info",
-          style: {
-            background: "red",
-            color: "white",
-          },
-        }).showToast();
+        notif("err", "Failed to delete student");
       } else {
         fetchStudents(current_class);
         logThis("A student has been deleted id: " + stdId);
       }
     });
   });
-  alert("Student deleted successfully");
+  notif("success", "Student deleted successfully");
 }
 
 function updateStudentCard(id, std_data) {
@@ -353,10 +358,11 @@ function updateStudentCard(id, std_data) {
     fs.writeFile(filePath, JSON.stringify(parsedData, null, 2), (err) => {
       if (err) {
         console.error("Error writing to tst.json:", err);
+        notif("err", "Failed to update student");
       } else {
         console.log("Student data updated successfully!");
         fetchStudents(current_class);
-        alert("Student data updated!");
+        notif("success", "Student data updated!");
       }
     });
   });
@@ -382,7 +388,7 @@ function getLogs() {
     for (let i = 0; i < logs.length; i++) {
       // var count = i + 1;
       document.getElementById("logsOut").innerHTML += `
-      <div class="p-4 text-gray-700 border-l-4 border-gray-500 bg-gray-50" role="alert">
+      <div class="p-4 text-gray-700 border-l-4 border-gray-500 bg-gray-50" role="notif""success", >
           <p class="font-bold">${logs[i]}</p>
         </div>
       `;
@@ -409,11 +415,13 @@ function updateTotalStudents(count) {
 
     fs.writeFile(filePath, JSON.stringify(parsedData, null, 2), (err) => {
       if (err) {
+        notif("err", "Operation failed, try again(Update total students)");
+
         return false;
       } else {
         getClasses();
         logThis("Total number of students updated");
-        alert("Total number of students updated");
+        notif("success", "Total number of students updated");
       }
     });
   });
@@ -440,11 +448,13 @@ async function updatePassword(pswd) {
 
     fs.writeFile(filePath, JSON.stringify(parsedData, null, 2), (err) => {
       if (err) {
+        notif("err", "Operation failed, try again(Password change)");
+
         return false;
       } else {
         getClasses();
         logThis("Password Changed");
-        alert("Password Changed");
+        notif("success", "Password Changed");
       }
     });
   });
@@ -467,11 +477,12 @@ function updateAcademicYear(year) {
 
     fs.writeFile(filePath, JSON.stringify(parsedData, null, 2), (err) => {
       if (err) {
+        notif("err", "Operation failed, try again(Update academic year)");
         return false;
       } else {
         getClasses();
         logThis("Academic year Changed");
-        alert("Academic year changed");
+        notif("success", "Academic year changed");
       }
     });
   });
