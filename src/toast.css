@@ -1,0 +1,62 @@
+#snackbar-success {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: #01ba01;
+  color: #fff;
+  text-align: center;
+  border-radius: 11px;
+  padding: 17px;
+  position: fixed;
+  z-index: 99999999999999;
+  left: 50%;
+  top: 30px;
+  font-size: 17px;
+}
+
+#snackbar-error {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: #ff4c00;
+  color: #fff;
+  text-align: center;
+  border-radius: 11px;
+  padding: 17px;
+  position: fixed;
+  z-index: 99999999999999;
+  left: 50%;
+  top: 30px;
+  font-size: 17px;
+}
+
+#snackbar.show,
+#snackbar-success.show,
+#snackbar-error.show {
+  visibility: visible;
+  animation: fadein 0.5s, fadeout 0.5s 1.7s;
+}
+
+@keyframes fadein {
+  from {
+    top: 0;
+    opacity: 0;
+  }
+
+  to {
+    top: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    top: 30px;
+    opacity: 1;
+  }
+
+  to {
+    top: 0;
+    opacity: 0;
+  }
+}

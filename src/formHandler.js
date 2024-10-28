@@ -203,7 +203,7 @@ document
 
     // Process each file one by one
     try {
-      for (let i = 0; i < bulky_students.length; i++) {
+      for (let i = 0; i <= bulky_students.length; i++) {
         const student = bulky_students[i];
         const result = await readFile(student);
 
@@ -255,12 +255,13 @@ document
 
     const oldPassword = formObject.oldPswd;
     const newPassword = formObject.newPswd;
-
+    e.target.reset();
     if (await bcrypt.compare(oldPassword, old)) {
       updatePassword(newPassword);
       console.log("Password updated successfully");
     } else {
       console.log("Incorrect old password");
+      notif("err", "Old password is incorrect");
     }
   });
 

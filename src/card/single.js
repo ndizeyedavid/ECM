@@ -4,20 +4,22 @@ const path = require("path");
 const { jsPDF } = require("jspdf");
 const html2canvas = require("html2canvas");
 const QRCode = require("qrcode");
+const { log } = require("console");
 
 const url = window.location.href;
-let current_class = url.split("?")[1].split("=")[1];
-current_class = current_class.replace("%20", " ");
-document.getElementById("cur-class").innerText = current_class;
+let std_id = url.split("?")[1].split("=")[1];
+std_id = std_id.replace("%20", " ");
+document.getElementById("cur-class").innerText = std_id;
+// console.log(std_id);
 
-// download link
-document.getElementById("download-link").download = current_class + ".pdf";
+// // download link
+document.getElementById("download-link").download = std_id + ".pdf";
 document.getElementById("download-link").href =
-  __dirname + "./cards/" + current_class + ".pdf";
-// console.log(current_class);
+  __dirname + "./cards/" + std_id + ".pdf";
+// console.log(std_id);
 
-// fetch all students cards
-function fetchCards(curr_class) {
+// // fetch all students cards
+function fetchCards(id) {
   const directoryPath = __dirname;
 
   const filePath = path.join(directoryPath, "../tst.json"); // Replace with the actual file name
@@ -32,7 +34,7 @@ function fetchCards(curr_class) {
     const card_data = parsedData[2].cards;
     for (let i = 0; i < card_data.length; i++) {
       const card = card_data[i];
-      if (card.class == curr_class) {
+      if (i == id) {
         let division = "A'LEVEL";
         if (card.class == "S1" || card.class == "S2" || card.class == "S3") {
           division = "O'LEVEL";
@@ -48,7 +50,7 @@ function fetchCards(curr_class) {
 
         <div class="card-details">
           <div class="img-container">
-            <div class='img' style="background-image: url('${real_image}');background-size: 120% 120%"></div> 
+            <div class='img' style="background-image: url('${real_image}');"></div> 
           </div>
           <div class="img-ribbon">
             <div class="side"></div>
@@ -91,6 +93,7 @@ function fetchCards(curr_class) {
       `;
 
         // var txt = `This card is issued to ${card.name} an ${division} student from ESSA Nyarugunga in ${card.class}. If lost, please return it to the school administration or contact the number behind`;
+        // var txt = `http://localhost/ecm/index.php?name=${card.name}&std_class=${card.class}`;
         var txt = `http://ecm.rf.gd/index.php?name=${card.name}&class=${card.class}`;
         QRCode.toDataURL(txt, function (error, url) {
           document.getElementById("std-" + i).src = url;
@@ -131,7 +134,7 @@ function fetchCards(curr_class) {
   });
 }
 
-fetchCards(current_class);
+fetchCards(std_id);
 
 async function saveAll() {
   const doc = new jsPDF({
@@ -139,7 +142,7 @@ async function saveAll() {
     unit: "in",
     format: [3.37, 2.125],
   });
-  const pdfPath = path.join(__dirname, "./cards/" + current_class + ".pdf");
+  const pdfPath = path.join(__dirname, "./cards/" + std_id + ".pdf");
 
   const progress = document.getElementById("pdfProgress");
 
@@ -174,10 +177,9 @@ async function saveAll() {
       }
 
       // Convert the canvas to a high-resolution data URL
-      const imageData = canvas.toDataURL("image/jpeg", 0.75); // Use JPEG with 75% quality for smaller size
-
+      const imageData = canvas.toDataURL("image/jpeg", 0.9); // Use JPEG with 75% quality for smaller size
+      // console.log(imageData);
       doc.addPage();
-      console.log(targetHeight);
 
       doc.addImage(imageData, "JPEG", 0, 0, targetWidth, 2.14);
 

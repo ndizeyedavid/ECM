@@ -4,18 +4,18 @@ const path = require("path");
 function createWindow() {
   const win = new BrowserWindow({
     // frame: false,
-    title: "ECG",
-    menuBar: false,
+    title: "ECM",
+    // menuBar: false,
 
     icon: path.join(__dirname, "icon.png"),
-    width: 1080,
-    height: 800,
+    width: 1280,
+    height: 864,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
     },
   });
-  Menu.setApplicationMenu(null);
+  // Menu.setApplicationMenu(null);
 
   // win.loadFile("src/index.html");
   win.loadFile("src/login.html");

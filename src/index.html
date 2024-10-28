@@ -4,11 +4,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ECG</title>
+  <title>ECM</title>
   <link rel="stylesheet" href="./output.css" />
+  <link rel="stylesheet" href="./toast.css">
 </head>
 
 <body onload="document.getElementById('preloader').style.display='none'">
+  <div id="snackbar-success">Message</div>
+  <div id="snackbar-error">Some text some message..</div>
+
   <div class="flex w-full h-full font-sans bg-white shadow-lg">
     <!-- Navigation -->
     <ul class="bg-gray-100 min-w-[150px] max-sm:min-w-[110px]">
@@ -21,7 +25,7 @@
 
         Dashboard
       </li>
-      <li id="cardsTab"
+      <li id="cardsTab" onclick="fetchStudents('S1')"
         class="tab text-gray-600 min-h-[100px] flex flex-col items-center justify-center font-semibold w-full text-[15px] px-4 border-r-4 border-gray-100 cursor-pointer">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor" class="w-8 mb-1.5">
           <path
@@ -323,11 +327,18 @@
         </div>
       </div>
 
-      <div class="inline-flex items-center justify-center">
+      <div class="inline-flex items-center justify-center" style="gap: 30px;">
         <button onclick="openFolder()"
           class="w-56 px-6 text-lg text-white bg-indigo-500 border-0 rounded py-9 focus:outline-none hover:bg-indigo-600">
           Get all cards
         </button>
+
+        <button onclick="sync()"
+          class="w-56 px-6 text-lg text-white bg-indigo-500 border-0 rounded py-9 focus:outline-none hover:bg-indigo-600">
+          Sync To Cloud
+        </button>
+        
+        
       </div>
     </div>
     <!-- MAin dashboard -->
@@ -498,12 +509,13 @@
     </div>
   </div>
 
+  <script src="./toast.js"></script>
   <script src="./active.js"></script>
   <script src="./renderer.js"></script>
   <script src="./formHandler.js"></script>
   <script src="./filter.js"></script>
+  <script src="sync.js"></script>
   <script>
-
     let modals = document.querySelectorAll('.modal');
     modals.forEach((modal) => {
       modal.addEventListener('click', (e) => {
@@ -524,6 +536,11 @@
       shell.openExternal(__dirname + '/card/cards');
     }
 
+    function printStudent(index){
+      console.log(index);
+      window.location.assign(`./card/single.html?id=${index}`);
+    }
+    
   </script>
 </body>
 

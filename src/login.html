@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ECG</title>
+    <title>ECM</title>
     <link rel="stylesheet" href="./output.css">
 </head>
 
-<body>
+<body onload="document.getElementById('preloader').style.display='none'">
     <div class="font-[sans-serif]">
         <div class="grid items-center h-full gap-4 lg:grid-cols-3 md:grid-cols-2">
             <div class="max-md:order-1 lg:col-span-2 md:h-screen w-full bg-[#000842] bg-cover bg-center md:rounded-tr-xl md:rounded-br-xl lg:p-12 p-8"
@@ -42,6 +42,16 @@
                     </div>
                 </form>
             </div>
+        </div>
+    </div>
+
+    <div id="preloader"
+        class="absolute top-0 flex flex-col items-center justify-center w-full h-full text-white bg-white ">
+        <div class='flex items-center justify-center h-screen space-x-2 bg-white'>
+            <span class='sr-only'>Loading...</span>
+            <div class='h-8 w-8 bg-black rounded-full animate-bounce [animation-delay:-0.3s]'></div>
+            <div class='h-8 w-8 bg-black rounded-full animate-bounce [animation-delay:-0.15s]'></div>
+            <div class='w-8 h-8 bg-black rounded-full animate-bounce'></div>
         </div>
     </div>
     <script>

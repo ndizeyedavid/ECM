@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snackbar</title>
+    <link rel="stylesheet" href="./output.css">
+    <style>
+        #snackbar-success {
+            /* visibility: hidden; */
+            min-width: 250px;
+            margin-left: -125px;
+            background-color: #01ba01;
+            color: #fff;
+            text-align: center;
+            border-radius: 11px;
+            padding: 17px;
+            position: fixed;
+            z-index: 99999999999999;
+            left: 50%;
+            top: 30px;
+            font-size: 17px;
+        }
+
+        #snackbar-error {
+            /* visibility: hidden; */
+            min-width: 250px;
+            margin-left: -125px;
+            background-color: #FF4C00;
+            color: #fff;
+            text-align: center;
+            border-radius: 11px;
+            padding: 17px;
+            position: fixed;
+            z-index: 99999999999999;
+            left: 50%;
+            top: 30px;
+            font-size: 17px;
+        }
+
+        #snackbar.show,
+        #snackbar-success.show,
+        #snackbar-error.show {
+            visibility: visible;
+            animation: fadein 0.5s, fadeout 0.5s 1.7s;
+        }
+
+
+        @keyframes fadein {
+            from {
+                top: 0;
+                opacity: 0;
+            }
+
+            to {
+                top: 30px;
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeout {
+            from {
+                top: 30px;
+                opacity: 1;
+            }
+
+            to {
+                top: 0;
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <button onclick="notif('err', 'User created')">Show Snackbar</button>
+
+    <!-- <div id="snackbar">Some text some message..</div> -->
+    <div id="snackbar-success">Message</div>
+    <div id="snackbar-error">Some text some message..</div>
+
+    <script>
+        function notif(format, text) {
+            if (format == "success") {
+                var x = document.getElementById("snackbar-success");
+                x.innerHTML = text;
+            } else {
+                var x = document.getElementById("snackbar-error");
+                x.innerHTML = text;
+            }
+            // var x = document.getElementById("snackbar");
+            x.className = "show";
+            setTimeout(function () { x.className = x.className.replace("show", ""); }, 2000);
+        }
+    </script>
+</body>
+
+</html>
